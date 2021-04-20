@@ -87,7 +87,8 @@ service.automf(3)
 tip['low'] = fuzz.trimf(tip.universe, [0, 0, 13])
 tip['medium'] = fuzz.trimf(tip.universe, [0, 13, 25])
 tip['high'] = fuzz.trimf(tip.universe, [13, 25, 25])
-## trapezoid = fuzz.trapmf()
+## Caso queira usar uma função trapezoidal
+## fuzz.trapmf()
 
 """
 To help understand what the membership looks like, use the ``view`` methods.
@@ -131,6 +132,7 @@ imprecise rules into a defined, actionable tip is a challenge. This is the
 kind of task at which fuzzy logic excels.
 """
 
+## Define regras do sistema
 rule1 = ctrl.Rule(quality['poor'] | service['poor'], tip['low'])
 rule2 = ctrl.Rule(service['average'], tip['medium'])
 rule3 = ctrl.Rule(service['good'] | quality['good'], tip['high'])
@@ -150,6 +152,7 @@ Now that we have our rules defined, we can simply create a control system
 via:
 """
 
+## Consolida regras do sistema
 tipping_ctrl = ctrl.ControlSystem([rule1, rule2, rule3])
 
 """
@@ -161,6 +164,7 @@ Sharon at the local brew-pub.  We would create another
 for Travis at the cafe because the inputs would be different.
 """
 
+## Cria controlador
 tipping = ctrl.ControlSystemSimulation(tipping_ctrl)
 
 """
@@ -170,8 +174,15 @@ and the service 9.8 of 10.
 """
 # Pass inputs to the ControlSystem using Antecedent labels with Pythonic API
 # Note: if you like passing many inputs all at once, use .inputs(dict_of_data)
-tipping.input['quality'] = 6.5
-tipping.input['service'] = 9.8
+
+# tipping.input['quality'] = 6.5
+# tipping.input['service'] = 9.8
+
+## ou use
+tipping.inputs({
+   'quality': 6.5,
+   'service': 9.8
+})
 
 # Crunch the numbers
 tipping.compute()
