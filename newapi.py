@@ -129,7 +129,7 @@ imprecise rules into a defined, actionable tip is a challenge. This is the
 kind of task at which fuzzy logic excels.
 """
 
-rule1 = ctrl.Rule(quality['poor'] & service['poor'], tip['low'])
+rule1 = ctrl.Rule(quality['poor'] | service['poor'], tip['low'])
 rule2 = ctrl.Rule(service['average'], tip['medium'])
 rule3 = ctrl.Rule(service['good'] | quality['good'], tip['high'])
 
